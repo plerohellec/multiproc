@@ -1,0 +1,15 @@
+MULTIPROC README
+----------------
+
+Objectives:
+* Run a set of tasks in N different processes forked from the main process.
+* Present an API in the for od a Multiproc class.
+* Collect errors printed by subprocess to stderr.
+* Wait for the sub processes to finish and collect their status.
+* Make the results available to the user of the Multiproc class.
+
+Input:
+* arrays of commands to run as forked processes
+
+
+
