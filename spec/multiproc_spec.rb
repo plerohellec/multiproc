@@ -45,10 +45,8 @@ class Multiproc
 
   describe "wait" do
 
-    CMDS = ['pwd']
-
     before :each do
-      @mp = Multiproc.new CMDS
+      @mp = Multiproc.new [ 'pwd' ]
       @mp.start
     end
 
@@ -59,22 +57,21 @@ class Multiproc
   end
 
   describe "check" do
-    CMDS = ['sleep 1']
 
     before :each do
-      @mp = Multiproc.new CMDS
+      @mp = Multiproc.new [ 'sleep 1' ]
       @mp.start
     end
 
     context "before processes complete" do
-      it "should return the 1 process running" do
+      it "should return 1 process running" do
         @mp.check.should eq(1)
       end
     end
 
     context "after processes complete" do
-      it "should return the 0 process running" do
-        sleep 2
+      it "should return 0 process running" do
+        sleep 1.1
         @mp.check.should eq(0)
       end
     end
