@@ -22,7 +22,7 @@ class Multiproc
 
     end
 
-    # fork dor each command
+    # fork for each command
     def start
         n = 0
         @cmds.each do |cmd|
@@ -32,6 +32,7 @@ class Multiproc
         end
     end
 
+    # wait and pickup all dead processes
     def wait
         for n in 0..@childs.size-1
             c = @childs[n]
@@ -41,19 +42,30 @@ class Multiproc
             @statuses[n] = c[:thr].value
         end
     end
+
+    # count the number of processes that are still running
+    def check
+        num_running = 0
+        for n in 0..@childs.size-1
+            if(@childs[n][:thr].alive?)
+                num_running += 1
+            end
+        end
+        return num_running
+    end
 end
 
 
-cmds = ['sleep 5', 'ls jhjh']
-
-mtp = Multiproc.new(cmds)
-mtp.start
-mtp.wait
-
-cmds.each_index do |i|
-    puts "#{cmds[i]}: #{mtp.statuses[i]}"
-end
-
-puts "done"
+# cmds = ['sleep 5', 'ls jhjh']
+#
+# mtp = Multiproc.new(cmds)
+# mtp.start
+# mtp.wait
+#
+# cmds.each_index do |i|
+#     puts "#{cmds[i]}: #{mtp.statuses[i]}"
+# end
+#
+# puts "done"
 
 
